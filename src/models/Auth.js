@@ -17,23 +17,23 @@ class Auth {
     })
   }
 
-  static actualizar({ id, usuario, password, rol }) {
+  static actualizar(id, campos) {
     return new Promise(async (resolve, reject) => {
       try {
         let fields = []
         let values = []
-        if (usuario) {
+        if (campos.usuario) {
           fields.push('usuario = ?')
-          values.push(usuario)
+          values.push(campos.usuario)
         }
-        if (password) {
-          const hash = await bcrypt.hash(password.toString(), 5)
+        if (campos.password) {
+          const hash = await bcrypt.hash(campos.password.toString(), 5)
           fields.push('password = ?')
           values.push(hash)
         }
-        if (rol) {
+        if (campos.rol) {
           fields.push('rol = ?')
-          values.push(rol)
+          values.push(campos.rol)
         }
         if (fields.length === 0) return resolve(false)
         values.push(id)

@@ -10,19 +10,19 @@ router.get('/', estudianteController.todos)
 router.get('/:id', estudianteController.uno)
 router.post(
   '/',
-  verificarToken(),
+  verificarToken,
   permitirRoles('supersu', 'admin', 'docente'),
   estudianteController.agregar
 )
 router.put(
   '/',
-  verificarToken(),
+  verificarToken,
   permitirRoles('supersu', 'admin', 'docente'),
   estudianteController.actualizar
 )
 router.delete(
   '/:id',
-  verificarToken(),
+  verificarToken,
   permitirRoles('supersu', 'admin', 'docente'),
   estudianteController.eliminar
 )

@@ -2,7 +2,7 @@ const conexion = require('../db/mysql')
 
 class Estudiante {
   static todos() {
-    const sql = 'SELECT * FROM estudiantes'
+    const sql = 'SELECT * FROM estudiante'
     return new Promise((resolve, reject) => {
       conexion.query(sql, (error, results) => {
         if (error) return reject(error)
@@ -13,7 +13,7 @@ class Estudiante {
 
   // Ejemplo de método para obtener uno por id
   static uno(id) {
-    const sql = 'SELECT * FROM estudiantes WHERE id = ?'
+    const sql = 'SELECT * FROM estudiante WHERE id = ?'
     return new Promise((resolve, reject) => {
       conexion.query(sql, [id], (error, results) => {
         if (error) return reject(error)
@@ -23,7 +23,7 @@ class Estudiante {
   }
 
   static agregar(estudiante) {
-    const sql = 'INSERT INTO estudiantes SET ?'
+    const sql = 'INSERT INTO estudiante SET ?'
     return new Promise((resolve, reject) => {
       conexion.query(sql, estudiante, (error, results) => {
         if (error) return reject(error)
@@ -33,7 +33,7 @@ class Estudiante {
   }
 
   static modificar(id, estudiante) {
-    const sql = 'UPDATE estudiantes SET ? WHERE id = ?'
+    const sql = 'UPDATE estudiante SET ? WHERE id = ?'
     return new Promise((resolve, reject) => {
       conexion.query(sql, [estudiante, id], (error, results) => {
         if (error) return reject(error)
@@ -43,7 +43,7 @@ class Estudiante {
   }
 
   static eliminar(id) {
-    const sql = 'DELETE FROM estudiantes WHERE id = ?'
+    const sql = 'DELETE FROM estudiante WHERE id = ?'
     return new Promise((resolve, reject) => {
       conexion.query(sql, [id], (error, results) => {
         if (error) return reject(error)

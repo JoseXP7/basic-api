@@ -1,9 +1,10 @@
 const Usuario = require('../models/Usuario')
+const respuestas = require('../red/respuestas')
 
 async function todos(req, res, next) {
   try {
     const usuarios = await Usuario.todos()
-    res.json(usuarios)
+    respuestas.success(req, res, usuarios, 200)
   } catch (error) {
     next(error)
   }
@@ -13,9 +14,9 @@ async function uno(req, res, next) {
   try {
     const usuario = await Usuario.uno(req.params.id)
     if (!usuario) {
-      return res.status(404).json({ mensaje: 'Usuario no encontrado' })
+      return respuestas.error(req, res, 'Usuario no encontrado', 404)
     }
-    res.json(usuario)
+    respuestas.success(req, res, usuario, 200)
   } catch (error) {
     next(error)
   }
@@ -23,8 +24,8 @@ async function uno(req, res, next) {
 
 async function agregar(req, res, next) {
   try {
-    const id = await Usuario.agregar(req.body)
-    res.status(201).json({ id })
+    const items = await Usuario.agregar(req.body)
+    respuestas.success(req, res, 'Agregado con éxito', 201)
   } catch (error) {
     next(error)
   }
@@ -34,9 +35,9 @@ async function actualizar(req, res, next) {
   try {
     const filasAfectadas = await Usuario.actualizar(req.params.id, req.body)
     if (filasAfectadas === 0) {
-      return res.status(404).json({ mensaje: 'Usuario no encontrado' })
+      return respuestas.error(req, res, 'Usuario no encontrado', 404)
     }
-    res.json({ mensaje: 'Usuario actualizado' })
+    respuestas.success(req, res, 'Usuario actualizado', 200)
   } catch (error) {
     next(error)
   }
@@ -46,9 +47,9 @@ async function eliminar(req, res, next) {
   try {
     const filasAfectadas = await Usuario.eliminar(req.params.id)
     if (filasAfectadas === 0) {
-      return res.status(404).json({ mensaje: 'Usuario no encontrado' })
+      return respuestas.error(req, res, 'Usuario no encontrado', 404)
     }
-    res.json({ mensaje: 'Usuario eliminado' })
+    respuestas.success(req, res, 'Usuario eliminado', 200)
   } catch (error) {
     next(error)
   }
